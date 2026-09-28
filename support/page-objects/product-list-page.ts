@@ -7,7 +7,7 @@ export class ProductListPage {
     this.page = page;
   }
 
-  async expectProductsHeadingVisible() {
+  async expectHeaderVisible() {
     await expect(this.page.getByRole("heading", { name: "All products" })).toBeVisible();
   }
 

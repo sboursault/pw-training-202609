@@ -13,7 +13,7 @@ export class LoginPage {
     await this.page.getByRole("button", { name: "Connexion" }).click();
   }
 
-  async expectLoginPageHeadingVisible() {
+  async expectHeaderVisible() {
     await expect(this.page.getByRole("heading", { name: "Connexion" })).toBeVisible();
   }
 

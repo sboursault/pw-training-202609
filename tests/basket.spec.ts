@@ -1,9 +1,12 @@
-import { test, expect } from "@playwright/test";
+import { test } from "@playwright/test";
+import { ProductPage } from "./page-objects/productPage";
 
 test("add to basket from product page", async ({ page }) => {
-  await page.goto("/fr/catalogue/the-hitchhikers-guide-to-the-galaxy_4/");
-  await expect(page.locator("#top_page")).toContainText("Panier");
-  await page.getByRole("button", { name: "Ajouter au panier" }).click();
-  await expect(page.locator("#top_page")).toContainText("Panier (1)");
-  await expect(page.getByText("× The Hitchhiker's Guide to")).toBeVisible();
+  const productPage = new ProductPage(page);
+
+  await productPage.goto();
+  await productPage.expectBasketLabel("Panier");
+  await productPage.addToBasket();
+  await productPage.expectBasketCount(1);
+  await productPage.expectConfirmMessage("× The Hitchhiker's Guide to");
 });

@@ -1,21 +1,17 @@
-import { test, expect } from "../support/fixtures";
+import { test } from "../support/fixtures";
 
-test('Login ok', async ({ page, productPage }) => {
+test("Login ok", async ({ productPage, loginPage, productListPage }) => {
   await productPage.goto();
-  await page.getByRole('link', { name: ' Compte' }).click();
-  await page.getByRole('textbox', { name: 'Adresse électronique *' }).fill('tom@test.test');
-  await page.getByRole('textbox', { name: 'Mot de passe *' }).fill('tom@test.test');
-  await page.getByRole('button', { name: 'Connexion' }).click();
-  await expect(page.getByRole('heading', { name: 'All products' })).toBeVisible();
-  await expect(page.locator('#top_page')).toContainText('tom@test.test');
+  await productPage.gotoAccount();
+  await loginPage.login("tom@test.test", "tom@test.test");
+  await productListPage.expectProductsHeadingVisible();
+  await productListPage.expectLoggedInUser("tom@test.test");
 });
 
-test('Mot de passe erroné', async ({ page, productPage }) => {
+test("Mot de passe erroné", async ({ productPage, loginPage }) => {
   await productPage.goto();
-  await page.getByRole('link', { name: ' Compte' }).click();
-  await page.getByRole('textbox', { name: 'Adresse électronique *' }).fill('tom@test.test');
-  await page.getByRole('textbox', { name: 'Mot de passe *' }).fill('zut');
-  await page.getByRole('button', { name: 'Connexion' }).click();
-  await expect(page.getByRole('heading', { name: 'Connexion' })).toBeVisible();
-  await expect(page.getByText('Oups ! Nous avons trouvé des')).toBeVisible();
+  await productPage.gotoAccount();
+  await loginPage.login("tom@test.test", "zut");
+  await loginPage.expectLoginPageHeadingVisible();
+  await loginPage.expectWrongPasswordMessageVisible();
 });

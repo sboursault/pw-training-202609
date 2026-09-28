@@ -11,6 +11,10 @@ export class ProductPage {
     await this.page.goto("/fr/catalogue/the-hitchhikers-guide-to-the-galaxy_4/");
   }
 
+  async gotoAccount() {
+    await this.page.getByRole("link", { name: " Compte" }).click();
+  }
+
   async expectEmptyBasket() {
     await expect(this.page.locator("#top_page")).toContainText("Panier");
   }

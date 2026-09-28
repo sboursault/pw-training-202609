@@ -1,7 +1,7 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from "../support/fixtures";
 
-test('Login ok', async ({ page }) => {
-  await page.goto('/fr/catalogue/the-hitchhikers-guide-to-the-galaxy_4/');
+test('Login ok', async ({ page, productPage }) => {
+  await productPage.goto();
   await page.getByRole('link', { name: ' Compte' }).click();
   await page.getByRole('textbox', { name: 'Adresse électronique *' }).fill('tom@test.test');
   await page.getByRole('textbox', { name: 'Mot de passe *' }).fill('tom@test.test');
@@ -10,8 +10,8 @@ test('Login ok', async ({ page }) => {
   await expect(page.locator('#top_page')).toContainText('tom@test.test');
 });
 
-test('Mot de passe erroné', async ({ page }) => {
-  await page.goto('/fr/catalogue/the-hitchhikers-guide-to-the-galaxy_4/');
+test('Mot de passe erroné', async ({ page, productPage }) => {
+  await productPage.goto();
   await page.getByRole('link', { name: ' Compte' }).click();
   await page.getByRole('textbox', { name: 'Adresse électronique *' }).fill('tom@test.test');
   await page.getByRole('textbox', { name: 'Mot de passe *' }).fill('zut');

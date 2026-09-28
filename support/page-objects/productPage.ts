@@ -11,8 +11,8 @@ export class ProductPage {
     await this.page.goto("/fr/catalogue/the-hitchhikers-guide-to-the-galaxy_4/");
   }
 
-  async expectBasketLabel(text: string) {
-    await expect(this.page.locator("#top_page")).toContainText(text);
+  async expectEmptyBasket() {
+    await expect(this.page.locator("#top_page")).toContainText("Panier");
   }
 
   async addToBasket() {

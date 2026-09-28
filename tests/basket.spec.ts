@@ -1,9 +1,6 @@
-import { test } from "@playwright/test";
-import { ProductPage } from "./page-objects/productPage";
+import { test } from "../support/fixtures";
 
-test("add to basket from product page", async ({ page }) => {
-  const productPage = new ProductPage(page);
-
+test("add to basket from product page", async ({ productPage }) => {
   await productPage.goto();
   await productPage.expectBasketLabel("Panier");
   await productPage.addToBasket();

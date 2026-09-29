@@ -5,11 +5,17 @@ test("Recover basket", async ({
   loginPage,
   productListPage,
   page,
+  basketAPI,
 }) => {
+  const username = "tom@test.test";
+  const password = "tom@test.test";
+
+  await basketAPI.clearBasket(username, password);
+
   // se connecter
   await loginPage.goto();
-  await loginPage.login("tom@test.test", "tom@test.test");
-  await productListPage.expectLoggedInUser("tom@test.test");
+  await loginPage.login(username, password);
+  await productListPage.expectLoggedInUser(username);
 
   // ajouter dans le panier
   await productPage.goto("the-hitchhikers-guide-to-the-galaxy_4");
@@ -23,8 +29,8 @@ test("Recover basket", async ({
 
   // se reconnecter
   await loginPage.goto();
-  await loginPage.login("tom@test.test", "tom@test.test");
-  await productListPage.expectLoggedInUser("tom@test.test");
+  await loginPage.login(username, password);
+  await productListPage.expectLoggedInUser(username);
 
   // -> je retrouve le produit dans le panier
   await productPage.goto("the-hitchhikers-guide-to-the-galaxy_4");

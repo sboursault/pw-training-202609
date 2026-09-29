@@ -7,6 +7,10 @@ export class ProductListPage {
     this.page = page;
   }
 
+  async goto() {
+    await this.page.goto("/");
+  }
+
   async expectHeaderVisible() {
     await expect(this.page.getByRole("heading", { name: "Tous les produits" })).toBeVisible();
   }

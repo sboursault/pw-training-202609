@@ -10,9 +10,17 @@ export class Workflow {
   ) {}
 
   async login(username: string, password: string) {
-    await this.loginPage.goto();
+    /*await this.loginPage.goto();
     await this.loginPage.login(username, password);
-    await this.productListPage.expectLoggedInUser(username);
+    await this.productListPage.expectLoggedInUser(username);*/
+
+    await this.page.request.post('/api/login/', {
+      data: {
+        username : username,
+        password : password
+      },
+      failOnStatusCode: true,
+    });
   }
 
   async logout() {

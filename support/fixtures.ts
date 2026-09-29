@@ -3,6 +3,7 @@ import { LoginPage } from "./page-objects/loginPage";
 import { ProductPage } from "./page-objects/productPage";
 import { ProductListPage } from "./page-objects/product-list-page";
 import { BasketAPI } from "./basketAPI";
+import { Workflow } from "./workflow";
 
 export type ProductPageFixture = {
   productPage: ProductPage;
@@ -20,7 +21,11 @@ export type BasketAPIFixture = {
   basketAPI: BasketAPI;
 };
 
-export const test = base.extend<ProductPageFixture & LoginPageFixture & ProductListPageFixture & BasketAPIFixture>({
+export type WorkflowFixture = {
+  workflow: Workflow;
+};
+
+export const test = base.extend<ProductPageFixture & LoginPageFixture & ProductListPageFixture & BasketAPIFixture & WorkflowFixture>({
   productPage: async ({ page }, use) => {
     await use(new ProductPage(page));
   },
@@ -32,6 +37,9 @@ export const test = base.extend<ProductPageFixture & LoginPageFixture & ProductL
   },
   basketAPI: async ({ request }, use) => {
     await use(new BasketAPI(request));
+  },
+  workflow: async ({ loginPage, productListPage, page }, use) => {
+    await use(new Workflow(loginPage, productListPage, page));
   },
 });
 

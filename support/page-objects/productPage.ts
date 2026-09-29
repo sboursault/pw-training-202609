@@ -16,7 +16,7 @@ export class ProductPage {
   }
 
   async expectEmptyBasket() {
-    await expect(this.page.locator("#top_page")).toContainText("Panier");
+    await expect(this.page.locator("#top_page")).not.toContainText("(");
   }
 
   async addToBasket() {

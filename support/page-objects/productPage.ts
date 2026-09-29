@@ -7,8 +7,8 @@ export class ProductPage {
     this.page = page;
   }
 
-  async goto() {
-    await this.page.goto("/fr/catalogue/the-hitchhikers-guide-to-the-galaxy_4/");
+  async goto(product: string) {
+    await this.page.goto("/fr/catalogue/" + product + "/");
   }
 
   async gotoAccount() {

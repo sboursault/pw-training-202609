@@ -1,7 +1,7 @@
-import { test } from "../support/fixtures";
+import { test, expect } from "../support/fixtures";
 
 test("Login ok", async ({ productPage, loginPage, productListPage }) => {
-  await productPage.goto();
+  await productPage.goto("the-hitchhikers-guide-to-the-galaxy_4");
   await productPage.gotoAccount();
   await loginPage.login("tom@test.test", "tom@test.test");
   await productListPage.expectHeaderVisible();
@@ -9,7 +9,7 @@ test("Login ok", async ({ productPage, loginPage, productListPage }) => {
 });
 
 test("Mot de passe erroné", async ({ productPage, loginPage }) => {
-  await productPage.goto();
+  await productPage.goto("the-hitchhikers-guide-to-the-galaxy_4");
   await productPage.gotoAccount();
   await loginPage.login("tom@test.test", "zut");
   await loginPage.expectHeaderVisible();
